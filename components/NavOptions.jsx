@@ -1,13 +1,14 @@
 import { View, Text, FlatList, TouchableOpacity, Image } from "react-native";
 import React from "react";
 import { Icon } from "@rneui/themed";
+import { useNavigation } from "@react-navigation/native";
 
 const data = [
   {
     id: "123",
     title: "Get a Ride",
     image: "https://links.papareact.com/3pn",
-    screen: "MapScreen",
+    screen: "Mapscreen",
   },
   {
     id: "456",
@@ -18,12 +19,16 @@ const data = [
 ];
 
 const NavOptions = () => {
+  const navigation = useNavigation();
   return (
     <FlatList
       data={data}
       horizontal
       renderItem={({ item }) => (
-        <TouchableOpacity className="p-3 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40">
+        <TouchableOpacity
+          className="p-3 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40"
+          onPress={() => navigation.navigate(item.screen)}
+        >
           <View>
             <Image
               source={{ uri: item.image }}
