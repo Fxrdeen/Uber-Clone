@@ -1,4 +1,4 @@
-import { SafeAreaView, StatusBar, Text, View } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import { Provider } from "react-redux";
 import { store } from "./store";
 import HomeScreen from "./screens/HomeScreen";
@@ -14,18 +14,24 @@ export default function App() {
     <SafeAreaProvider>
       <Provider store={store}>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen
-              component={HomeScreen}
-              name="Home"
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              component={MapScreen}
-              name="Mapscreen"
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
+          <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.OS === "ios" ? -64 : 0}
+          >
+            <Stack.Navigator>
+              <Stack.Screen
+                component={HomeScreen}
+                name="Home"
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                component={MapScreen}
+                name="Mapscreen"
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </KeyboardAvoidingView>
         </NavigationContainer>
       </Provider>
     </SafeAreaProvider>
